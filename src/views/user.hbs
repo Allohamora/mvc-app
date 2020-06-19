@@ -1,0 +1,16 @@
+{{#if login}}
+    <a href="user/logout">logout</a>
+    <ul>
+        {{#each list}}
+            <li>
+                <a href="/{{this.id}}" >{{this.id}}</a>
+                <div>{{this.clicks}}</div>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <div>
+        <a href="/user/login">login</a>
+        <a href="/user/register">register</a>
+    </div>
+{{/if}}

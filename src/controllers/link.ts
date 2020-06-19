@@ -72,7 +72,8 @@ router.get("/:id", async (req, res) => {
     const finded = await Link.findOne({ id }).exec();
     
     if( finded ) {
-        await Link.findOneAndUpdate({ id }, { clicks: finded.clicks + 1 }).exec();
+        finded.clicks += 1;
+        await finded.save();
 
         return res.redirect(finded.url);
     }
