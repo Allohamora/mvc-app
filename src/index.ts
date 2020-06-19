@@ -1,10 +1,16 @@
+import * as dotenv from "dotenv";
+// init .env
+dotenv.config();
+
 import { App } from "./App";
 import { linkController } from "./controllers/link";
-import { homeController } from "./controllers/home";
+import { baseController } from "./controllers/base";
+import { userController } from "./controllers/user";
 
 const routes = [ 
-    homeController,
-    linkController
+    baseController,
+    userController,
+    linkController,
 ];
 
 const app = new App(routes);

@@ -1,12 +1,10 @@
 import * as mongoose from "mongoose";
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import * as dotenv from "dotenv";
 import * as hbsExpress from "express-handlebars";
 import * as path from "path";
-
-// init .env
-dotenv.config();
+import * as cookieParser from "cookie-parser";
+import { errorResponse } from "./helpers/responseHelper";
 
 const { MONGO_URI, PORT } = process.env;
 
@@ -51,6 +49,7 @@ export class App {
     }
 
     private registerMiddlewares() {
+        this.app.use( cookieParser() )
         this.app.use( bodyParser.json() );
         this.app.use( bodyParser.urlencoded({ extended: false }) );
     }
@@ -58,7 +57,7 @@ export class App {
     private registerRouters(controllers: Controllers) {
         controllers.forEach( ({ router, path }) => this.app.use(path, router) );
 
-        this.app.use( "*" ,(req, res) => res.send("404") );
+        this.app.use( "*" ,(req, res) => errorResponse(res, 404)("404") );
     }
 
     private async connectToMongodb() {
