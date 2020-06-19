@@ -53,16 +53,17 @@ router.post("/login", async (req, res) => {
         if( errors.length ) return res.render("login", { errors, title });
     
         const finded = await User.findOne({ login }).exec();
+
+        if( !finded ) {
+            errors.push("user not found!");
+            return res.render("login", { errors, title });
+        }
+
         const isValidPassword = await bcrypt.compare(password, finded.password);
 
         if( !isValidPassword ) {
             errors.push("invalid password");
             return res.render("login", {errors, title});
-        }
-    
-        if( !finded ) {
-            errors.push("user not found!");
-            return res.render("login", { errors, title });
         }
     
         res.cookie("token", jwt.sign({ login }, SECRET, { expiresIn: "1h" }), { maxAge: 60 * 60 * 1000 })
@@ -102,7 +103,7 @@ router.post("/register", async(req, res) => {
         const user = new User({ login, password:  await bcrypt.hash(password, 4) });
         await user.save();
         
-        return res.render("register", { success: `user ${login} created!`, title });
+        return res.render("register", { success: `user ${login} registered!`, title });
     } catch(e) {
         res.render("register", {
             errors: ["error on server, try later!"],

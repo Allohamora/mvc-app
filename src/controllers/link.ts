@@ -49,7 +49,7 @@ router.post("/create", async (req, res) => {
 
         if( finded ) {
             res.render("home", {
-                success: `http://localhost:${PORT}/${finded.id}`,
+                success: `finded: http://localhost:${PORT}/${finded.id}`,
                 title
             });
         } else {
@@ -59,7 +59,7 @@ router.post("/create", async (req, res) => {
             await link.save();
         
             res.render("home", {
-                success: `http://localhost:${PORT}/${id}`,
+                success: `created: http://localhost:${PORT}/${id}`,
                 title
             });
         }
