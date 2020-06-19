@@ -9,6 +9,7 @@ export const linkController = createController("/");
 const { router } = linkController;
 
 router.post("/create", async (req, res) => {
+    const title = "Home";
     try {
 
         const { url } = req.body;
@@ -30,6 +31,7 @@ router.post("/create", async (req, res) => {
     
             return res.render("home", {
                 errors,
+                title
             });
         }
     
@@ -39,6 +41,7 @@ router.post("/create", async (req, res) => {
     
             return res.render("home", {
                 errors,
+                title
             });
         }
 
@@ -46,7 +49,8 @@ router.post("/create", async (req, res) => {
 
         if( finded ) {
             res.render("home", {
-                success: `link: http://localhost:${PORT}/${finded.id}`
+                success: `link: http://localhost:${PORT}/${finded.id}`,
+                title
             });
         } else {
             const id = hasha(url).slice(0, 6);
@@ -55,13 +59,15 @@ router.post("/create", async (req, res) => {
             await link.save();
         
             res.render("home", {
-                success: `link: http://localhost:${PORT}/${id}`
+                success: `link: http://localhost:${PORT}/${id}`,
+                title
             });
         }
 
     } catch(e) {
         return res.render("home", {
             errors: ["error on server, try later!"],
+            title
         })
     }
 });

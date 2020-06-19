@@ -1,15 +1,15 @@
-<form action="/user/register" method="POST" >
-    <input type="text" name="login" required >
-    <input type="password" name="password" required >
-    <button>send</button>
+<h1 class="d-flex justify-content-center m-2" >Register page</h1>
+
+<form class="mb-3" action="/user/register" method="POST" >
+    {{> authInner}}
 </form>
 
-<div class="messages" >
+<div>
     {{#if success}}
-        <div class="success">{{success}}</div>
+        <div class="alert alert-success">{{success}}</div>
     {{else}}
         {{#each errors}}
-            <div class="error" >{{this}}</div>
+            <div class="alert alert-danger" >{{this}}</div>
         {{/each}}
     {{/if}}
 </div>

@@ -1,16 +1,33 @@
 {{#if login}}
-    <a href="user/logout">logout</a>
-    <ul>
+    <h1 class="d-flex justify-content-center m-2" >User: {{login}}</h1>
+
+    <div class="d-flex justify-content-end" >
+        <a class="btn btn-primary" href="user/logout">logout</a>
+    </div>
+
+    <table class="table table-bordered m-2" >
+        <thead>
+            <tr>
+                <th>Link</th>
+                <th>Clicks</th>
+            </tr>
+        </thead>
         {{#each list}}
-            <li>
-                <a href="/{{this.id}}" >{{this.id}}</a>
-                <div>{{this.clicks}}</div>
-            </li>
+            <tr>
+                <td><a href="/{{this.id}}" >{{this.id}}</a></td>
+                <td><div>{{this.clicks}}</div></td>
+            </tr>
         {{/each}}
-    </ul>
+    </table>
 {{else}}
-    <div>
-        <a href="/user/login">login</a>
-        <a href="/user/register">register</a>
+    <div class="row align-items-center flex-column" >
+        <h2 class="col d-flex justify-content-center m-2" >Login first</h2>
+
+        <div class="col d-flex justify-content-center mt-4">
+            <div>
+                <a class="btn btn-primary" href="/user/login">Login</a>
+                <a class="btn btn-primary" href="/user/register">Register</a>
+            </div>
+        </div>
     </div>
 {{/if}}
