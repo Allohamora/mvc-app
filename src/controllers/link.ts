@@ -1,6 +1,6 @@
-import { createController } from "./createController";
 import * as jwt from "jsonwebtoken";
 import * as hasha from "hasha";
+import { createController } from "./createController";
 import { Link } from "../models/link";
 
 const { SECRET, PORT } = process.env;
@@ -49,7 +49,7 @@ router.post("/create", async (req, res) => {
 
         if( finded ) {
             res.render("home", {
-                success: `link: http://localhost:${PORT}/${finded.id}`,
+                success: `http://localhost:${PORT}/${finded.id}`,
                 title
             });
         } else {
@@ -59,7 +59,7 @@ router.post("/create", async (req, res) => {
             await link.save();
         
             res.render("home", {
-                success: `link: http://localhost:${PORT}/${id}`,
+                success: `http://localhost:${PORT}/${id}`,
                 title
             });
         }

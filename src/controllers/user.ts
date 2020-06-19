@@ -1,7 +1,7 @@
-import { createController } from "./createController";
-import { User } from "../models/user";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
+import { createController } from "./createController";
+import { User } from "../models/user";
 import { Link } from "../models/link";
 
 const { SECRET } = process.env;
@@ -95,14 +95,14 @@ router.post("/register", async(req, res) => {
         const finded = await User.findOne({ login }).exec();
     
         if( finded ) {
-            errors.push("user already register!");
+            errors.push(`user ${login} already registered!`);
             return res.render("register", { errors, title });
         }
     
         const user = new User({ login, password:  await bcrypt.hash(password, 4) });
         await user.save();
         
-        return res.render("register", { success: `user ${login} create!`, title });
+        return res.render("register", { success: `user ${login} created!`, title });
     } catch(e) {
         res.render("register", {
             errors: ["error on server, try later!"],
