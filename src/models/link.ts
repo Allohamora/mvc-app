@@ -9,6 +9,7 @@ export interface iLink extends mongoose.Document {
 
 const LinkSchema = new Schema({
     url: { required: true, type: String },
+    author: { required: true, type: String },
     id: { required: true, type: String },
 })
 

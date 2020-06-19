@@ -1,1 +1,42 @@
 <h1>Welcome to home page!</h1>
+
+
+<form class="createLink" action="/create" method="POST" >
+    <input type="text" name="url" required >
+    <button>send</button>
+</form>
+
+<div class="message" ></div>
+
+<script>
+    const form = document.querySelector(".createLink");
+    const message = document.querySelector(".message");
+
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        const url = e.target.url.value;
+        const regexp = /^https?:\/\//;
+
+        if( !regexp.test(url) ) return message.innerText = `Error: incorect url!`;
+
+        const response = await fetch("/create", {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url
+            })
+        });
+
+        const { success, link, error }  = await response.json();
+
+        if( success ) {
+            message.innerText = `${success}, link: ${link}`;
+        } else {
+            message.innerText = `Error: ${error}`;
+        }
+    });
+
+</script>
